@@ -1,6 +1,25 @@
+using namespace std;
+
 #include <iostream>
 #include <string>
-#include "../Domain/Car.cpp"
+
+class Car 
+{
+    public:
+    string brand;
+    string model;
+
+    Car(string brand, string model)
+    {
+        this->brand = brand;
+        this->model = model;
+    }
+};
+
+void printCars(Car cars[]) {
+    for (int i = 0; i < 3; i++)
+        std::cout << i + 1 << ". " << cars[i].brand << "\n";
+}
 
 int main()
 {
@@ -8,19 +27,12 @@ int main()
     std::cout << "Please enter your name: ";
     std::cin >> name;
     
-    Car fiat;
-    fiat.brand = "Fiat";
-    fiat.model = "Bravo";
+    Car cars[] = 
+    { 
+        Car("Fiat", "Bravo"), 
+        Car("Peugeot", "206"), 
+        Car("Honda", "Civic") }
+    ;
 
-    Car peugeot;
-    peugeot.brand = "Peugeot";
-    peugeot.model = "206";
-
-    Car honda;
-    honda.brand = "Honda";
-    honda.model = "Civic";
-
-    const Car cars[3] = { fiat, peugeot, honda};
-    for (int i = 0; i < 3; i++)
-        std::cout << i + ". " << cars->brand[i] << "\n";
+    printCars(cars);
 }
