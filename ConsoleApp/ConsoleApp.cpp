@@ -2,6 +2,7 @@ using namespace std;
 
 #include <iostream>
 #include <string>
+#include <regex>
 
 class Car 
 {
@@ -23,9 +24,13 @@ void printCars(Car cars[]) {
 
 int main()
 {
-    std::string name;
-    std::cout << "Please enter your name: ";
-    std::cin >> name;
+    string name;
+    cout << "Please enter your name: ";
+    cin >> name;
+    regex expression("/^[a-z ,.'-]+$/i");
+
+    if (regex_match(name, expression))
+        cout << "The name is valid";
     
     Car cars[] = 
     { 
