@@ -19,24 +19,24 @@ class Car {
         string getBrand() {
             return brand;
         }
+
+        string getModel() {
+            return model;
+        }
 };
 
 class User {
     private:
         string name;
 
+    public:
         void setName(string name) {
-            regex expression("/^[a-z ,.'-]+$/i");
+            regex expression("^[A-Za-z]{1,20}$");
 
             if (!regex_match(name, expression))
                 throw invalid_argument("The following name is not valid: " + this->name);
 
             this->name = name;
-        }
-
-    public:
-        User(string name) {
-            setName(name);
         }
 
         string getName() {
@@ -46,18 +46,23 @@ class User {
 
 void printCars(Car cars[]) {
     for (int i = 0; i < 3; i++)
-        std::cout << i + 1 << ". " << cars[i].getBrand() << "\n";
+        std::cout << i + 1 << ". " << cars[i].getBrand() << endl;
 }
 
 int main()
 {
-    string name;
-    cout << "Please enter your name: ";
-    cin >> name;
+    User user = User();
 
-    User user = User(name);
-    cout << "Welcome " << user.getName();
-    
+    do
+    {
+        string name;
+        cout << "Please enter your name: ";
+        cin >> name;
+
+        try { user.setName(name); }
+        catch (exception & exception) { cout << exception.what() << endl;}
+    } while (user.getName().empty());
+
     Car cars[] = 
     { 
         Car("Fiat", "Bravo"), 
@@ -66,4 +71,9 @@ int main()
     ;
 
     printCars(cars);
+
+    short option;
+    cout << "Please choose one of the cars above: ";
+    cin >> option;
+    cout << "You have chosen " << cars[option].getBrand() << " " << cars[option].getModel();
 }
