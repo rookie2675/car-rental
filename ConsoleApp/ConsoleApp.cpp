@@ -46,7 +46,7 @@ class User {
 
 void printCars(Car cars[]) {
     for (int i = 0; i < 3; i++)
-        std::cout << i + 1 << ". " << cars[i].getBrand() << endl;
+        std::cout << i + 1 << ". " << cars[i].getBrand() << " " << cars[i].getModel() << endl;
 }
 
 int main()
@@ -71,9 +71,14 @@ int main()
     ;
 
     printCars(cars);
+    string option;
+    int index;
 
-    short option;
-    cout << "Please choose one of the cars above: ";
-    cin >> option;
-    cout << "You have chosen " << cars[option].getBrand() << " " << cars[option].getModel();
+    do {
+        cout << "Please choose one of the cars above: ";
+        getline(cin, option);
+    } while (!isdigit(option[0]));
+
+    index = stoi(option);
+    cout << "You have chosen " << cars[index].getBrand() << " " << cars[index].getModel();
 }
