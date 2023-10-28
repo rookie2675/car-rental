@@ -4,36 +4,55 @@
 #include "car.h"
 #include "user.h"
 
-void printCars(std::vector<Car>& cars) {
+void printCars(const std::vector<Car>& cars) {
 
     int i = 1;
 
-    for (auto& car : cars) 
+    for (const auto& car : cars) 
     {
         std::cout << i++ << ". " << car.getBrand() << " " << car.getModel() << std::endl;
     }
 }
 
+void printChosenCar(const Car& car) 
+{
+    std::cout << "You have chosen " << car.getBrand() << " " << car.getModel();
+}
+
+std::string promptForName() {
+    std::string name;
+    std::cout << "Please enter your name: ";
+    std::cin >> name;
+    return name;
+}
+
+std::vector<Car> loadCars() 
+{
+    return {
+        Car("Fiat", "Bravo"),
+        Car("Peugeot", "206"),
+        Car("Honda", "Civic")
+    };
+
+}
+
 int main()
 {
-    User user = User();
+    User user;
 
     do
     {
-        std::string name;
-        std::cout << "Please enter your name: ";
-        std::cin >> name;
-
-        try { user.setName(name); }
-        catch (std::exception & exception) { std::cout << exception.what() << std::endl;}
+        try 
+        { 
+            user.setName(promptForName());
+        }
+        catch (const std::exception & exception) 
+        { 
+            std::cout << exception.what() << std::endl;
+        }
     } while (user.getName().empty());
 
-    std::vector<Car> cars = 
-    { 
-        Car("Fiat", "Bravo"), 
-        Car("Peugeot", "206"), 
-        Car("Honda", "Civic") }
-    ;
+    std::vector<Car> cars = loadCars();
 
     printCars(cars);
     std::string option;
@@ -48,7 +67,7 @@ int main()
     index--;
     Car& selectedCar = cars[index];
 
-    std::cout << "You have chosen " << selectedCar.getBrand() << " " << selectedCar.getModel();
+    printChosenCar(selectedCar);
 
     return 0;
 }
