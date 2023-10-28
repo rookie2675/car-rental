@@ -5,13 +5,14 @@
 #include <regex>
 #include <stdexcept>
 
-class User {
-private:
-    std::string name;
+class User 
+{
+    private:
+        std::string name;
 
-public:
-    void setName(std::string name);
-    std::string getName();
+    public:
+        void setName(std::string name);
+        std::string getName() const;
 };
 
 #endif
